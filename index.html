@@ -9,7 +9,7 @@
             margin: 0;
             padding: 0;
             height: 100%;
-            overflow: hidden; /* 去除整体的横向和纵向滚动 */
+            overflow: hidden;
             width: 100vw;
         }
 
@@ -21,55 +21,31 @@
 
         .top, .bottom {
             flex: 1;
-            overflow-y: auto; /* 允许纵向滚动 */
-            -webkit-overflow-scrolling: touch; /* 添加滚动惯性支持 */
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
             padding: 0;
             width: 100%;
         }
 
-        .text-container {
-            white-space:pre-wrap;
-            font-size: 16px; /* 调整字体大小 */
-            line-height: 1.5; /* 行高，增加可读性 */
-        }
-
         .image-container {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            overflow-y: auto; /* 允许纵向滚动 */
-            -webkit-overflow-scrolling: touch; /* 添加滚动惯性支持 */
-            touch-action: pan-y; /* 只允许纵向拖动 */
+            padding: 0; /* 去掉内边距 */
+            margin: 0; /* 去掉外边距 */
         }
 
         .image {
-            position: relative;
-            width: 100%;
+            width: 100vw; /* 设置为100vw以消除左右留白 */
             display: block;
             transition: transform 0.1s ease-out;
+            margin: 0; /* 去掉图片底部的间隔 */
         }
     </style>
 </head>
 <body>
     <div class="split">
-        <!-- 上半部分显示文本 -->
+        <!-- 上半部分显示图片 -->
         <div class="top" id="top">
-            <div class="text-container" id="text-container">
-先帝1创业2未半而中道3崩殂4，今5天下三分6，益州疲弊7，此8诚危急存亡之秋也。然9侍卫之臣不懈于内，忠志之士忘身10于外者，盖追先帝之殊遇11，欲报之于陛下也。诚宜12开张圣听13，以光14先帝遗德，恢弘15志士之气，不宜妄自菲薄16，引喻失义17，以塞忠谏之路也18。
-                
-宫中府中，俱为一体19；陟罚臧否20，不宜异同：若有作奸犯科21及为忠善者22，宜付有司23论其刑赏24，以昭陛下平明之理25；不宜偏私26，使内外异法也27。
-                
-侍中、侍郎郭攸之、费祎、董允等，此皆良实，志虑忠纯28，是以先帝简拔以遗陛下29：愚以为宫中之事，事无大小，悉以咨之30，然后施行，必能裨补阙漏31，有所广益32。
-                
-将军向宠，性行淑均33，晓畅34军事，试用35于昔日，先帝称之曰“能”，是以众议举宠为督36：愚以为营37中之事，悉以咨之，必能使行阵38和睦，优劣得所39。
-                
-先帝1创业2未半而中道3崩殂4，今5天下三分6，益州疲弊7，此8诚危急存亡之秋也。然9侍卫之臣不懈于内，忠志之士忘身10于外者，盖追先帝之殊遇11，欲报之于陛下也。诚宜12开张圣听13，以光14先帝遗德，恢弘15志士之气，不宜妄自菲薄16，引喻失义17，以塞忠谏之路也18。
-                
-宫中府中，俱为一体19；陟罚臧否20，不宜异同：若有作奸犯科21及为忠善者22，宜付有司23论其刑赏24，以昭陛下平明之理25；不宜偏私26，使内外异法也27。
-                
-侍中、侍郎郭攸之、费祎、董允等，此皆良实，志虑忠纯28，是以先帝简拔以遗陛下29：愚以为宫中之事，事无大小，悉以咨之30，然后施行，必能裨补阙漏31，有所广益32。
-                
-将军向宠，性行淑均33，晓畅34军事，试用35于昔日，先帝称之曰“能”，是以众议举宠为督36：愚以为营37中之事，悉以咨之，必能使行阵38和睦，优劣得所39。            
+            <div class="image-container" id="image-container-top">
+                <!-- 动态生成上半部分的图片 -->
             </div>
         </div>
 
@@ -96,9 +72,19 @@
             localStorage.setItem('bottomScroll', this.scrollTop);
         };
 
+        // 动态生成上半部分图片列表
+        const imageContainerTop = document.getElementById('image-container-top');
+        for (let i = 131; i <= 133; i++) {
+            const img = document.createElement('img');
+            img.src = `IMG_${String(i).padStart(4, '0')}.png`;
+            img.alt = `Image ${i}`;
+            img.className = 'image';
+            imageContainerTop.appendChild(img);
+        }
+
         // 动态生成下半部分图片列表
         const imageContainerBottom = document.getElementById('image-container-bottom');
-        for (let i = 131; i <= 133; i++) {
+        for (let i = 131; i <= 132; i++) {
             const img = document.createElement('img');
             img.src = `IMG_${String(i).padStart(4, '0')}.png`;
             img.alt = `Image ${i}`;
